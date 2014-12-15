@@ -19,7 +19,7 @@
 LOCAL_PATH := device/samsung/ms013g
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := ms013g,ms013gxx
+TARGET_OTA_ASSERT_DEVICE := ms013g,ms013gxx,ms01lte
 
 # Kernel
 TARGET_KERNEL_SOURCE := kernel/samsung/ms013g
@@ -36,6 +36,7 @@ TARGET_KERNEL_MODULES += WLAN_MODULES
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
+TARGET_UNIFIED_DEVICE := true
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 10485760
@@ -50,7 +51,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_RIL_CLASS := ../../../device/samsung/ms013g/ril/
 
 # Disable initlogo, Samsungs framebuffer is weird
-TARGET_NO_INITLOGO := true
+#TARGET_NO_INITLOGO := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom

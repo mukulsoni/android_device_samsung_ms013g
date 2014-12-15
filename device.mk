@@ -22,10 +22,9 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:root/fstab.qcom \
-    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:recovery/root/fstab.qcom 
+    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:root/fstab.qcom
 
-# RIL
+#RIL
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.ril_class=ms013gDSRIL
 
@@ -39,7 +38,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 PRODUCT_COPY_FILES += \
     kernel/samsung/ms013g/drivers/staging/prima/firmware_bin/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     kernel/samsung/ms013g/drivers/staging/prima/firmware_bin/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
-    kernel/samsung/ms013g/drivers/staging/prima/firmware_bin/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
+    $(LOCAL_PATH)/wifi/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
     kernel/samsung/ms013g/drivers/staging/prima/firmware_bin/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
     kernel/samsung/ms013g/drivers/staging/prima/firmware_bin/WCNSS_qcom_wlan_nv.bin:system/etc/WCNSS_qcom_wlan_nv.bin
 
