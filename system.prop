@@ -10,14 +10,7 @@ persist.rild.nitz_short_ons_0=
 persist.rild.nitz_short_ons_1=
 persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
-telephony.lteOnGsmDevice=0
-ro.telephony.default_network=0
-ro.multi.rild=true
-persist.dsds.enabled=true
-persist.radio.multisim.config=dsds
-persist.multisim.config=dsds
 ril.subscription.types=NV,RUIM
-#DEVICE_PROVISIONED=1
 
 # Audio
 audio.offload.24bit.enable=false
@@ -75,6 +68,7 @@ ro.qc.sdk.izat.service_mask=0x0
 # Qualcomm
 com.qc.hardware=true
 ro.qualcomm.cabl=0
+qcom.hw.aac.encoder=true
 
 # Radio
 persist.data.netmgrd.qos.enable=false

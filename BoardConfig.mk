@@ -36,6 +36,7 @@ TARGET_KERNEL_MODULES += WLAN_MODULES
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
+TARGET_LIBINIT_DEFINES_FILE := $(LOCAL_PATH)/init/init_ms013g.c
 TARGET_UNIFIED_DEVICE := true
 
 # Partitions
@@ -49,6 +50,9 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 # Radio
 BOARD_RIL_CLASS := ../../../device/samsung/ms013g/ril/
+
+# Releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/ms013g
 
 # Disable initlogo, Samsungs framebuffer is weird
 #TARGET_NO_INITLOGO := true
