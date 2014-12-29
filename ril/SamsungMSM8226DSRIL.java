@@ -62,7 +62,6 @@ import com.android.internal.telephony.cdma.CdmaInformationRecords;
 import com.android.internal.telephony.cdma.CdmaSmsBroadcastConfigInfo;
 import com.android.internal.telephony.dataconnection.DcFailCause;
 import com.android.internal.telephony.dataconnection.DataCallResponse;
-import com.android.internal.telephony.dataconnection.DataProfileOmh;
 import com.android.internal.telephony.dataconnection.DataProfile;
 
 import java.io.ByteArrayInputStream;
@@ -81,7 +80,7 @@ import java.util.Random;
 
 
 /**
- * RIL customization for Galaxy S3 Neo Single-sim devices
+ * RIL customization for Samsung MSM8226 Dual-sim devices
  *
  * {@hide}
  */
@@ -93,18 +92,16 @@ public class SamsungMSM8226DSRIL extends RIL implements CommandsInterface {
     private static final int RIL_UNSOL_AM = 11010;
     private static final int RIL_UNSOL_WB_AMR_STATE = 11017;
     private static final int RIL_UNSOL_RESPONSE_HANDOVER = 11021;
-    private static final int RIL_UNSOL_ON_SS_I9300I = 1040;
-    private static final int RIL_UNSOL_STK_CC_ALPHA_NOTIFY_I9300I = 1041;
-    private static final int RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED_I9300I = 11031;
+    private static final int RIL_UNSOL_ON_SS_G7102 = 1040;
+    private static final int RIL_UNSOL_STK_CC_ALPHA_NOTIFY_G7102 = 1041;
+    private static final int RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED_G7102 = 11031;
 
-
-
+    private Message mPendingGetSimStatus;
 
     public SamsungMSM8226DSRIL(Context context, int networkMode, int cdmaSubscription,Integer instanceId) {
         super(context, networkMode, cdmaSubscription,  instanceId);
         mQANElements = 6;
     }
-
 
     @Override
     public void
@@ -118,9 +115,9 @@ public class SamsungMSM8226DSRIL extends RIL implements CommandsInterface {
 
         rr.mParcel.writeString(address);
         rr.mParcel.writeInt(clirMode);
-        rr.mParcel.writeInt(0);         // CallDetails.call_type
-        rr.mParcel.writeInt(1);         // CallDetails.call_domain
-        rr.mParcel.writeString("");     // CallDetails.getCsvFromExtras
+        rr.mParcel.writeInt(0);     // CallDetails.call_type
+        rr.mParcel.writeInt(1);     // CallDetails.call_domain
+        rr.mParcel.writeString(""); // CallDetails.getCsvFromExtras
 
         if (uusInfo == null) {
             rr.mParcel.writeInt(0); // UUS information is absent
@@ -146,6 +143,15 @@ public class SamsungMSM8226DSRIL extends RIL implements CommandsInterface {
         rr.mParcel.writeInt(0);
 
         send(rr);
+    }
+
+   @Override
+    public void getIccCardStatus(Message result) {
+        if (this.mState != RadioState.RADIO_ON) {
+            this.mPendingGetSimStatus = result;
+        } else {
+            super.getIccCardStatus(result);
+        }
     }
 
     @Override
@@ -465,6 +471,52 @@ public class SamsungMSM8226DSRIL extends RIL implements CommandsInterface {
         send(rr);
     }
 
+   @Override
+    protected void switchToRadioState(RadioState newState) {
+        super.switchToRadioState(newState);
+        if (newState == RadioState.RADIO_ON && this.mPendingGetSimStatus != null) {
+            super.getIccCardStatus(this.mPendingGetSimStatus);
+            this.mPendingGetSimStatus = null;
+        }
+    }
+
+
+   @Override
+    public void setUiccSubscription(int slotId, int appIndex, int subId,
+            int subStatus, Message result) {
+        //Note: This RIL request is also valid for SIM and RUIM (ICC card)
+        RILRequest rr = RILRequest.obtain(115, result);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
+                + " slot: " + slotId + " appIndex: " + appIndex
+                + " subId: " + subId + " subStatus: " + subStatus);
+
+        rr.mParcel.writeInt(slotId);
+        rr.mParcel.writeInt(appIndex);
+        rr.mParcel.writeInt(subId);
+        rr.mParcel.writeInt(subStatus);
+
+        send(rr);
+    }
+
+   @Override
+    public void setDataAllowed(boolean allowed, Message result) {
+	int req = 123;
+        RILRequest rr;
+	if (allowed)
+        {
+            req = 116;
+            rr = RILRequest.obtain(req, result);
+        }
+        else
+        {
+            rr = RILRequest.obtain(req, result);
+            rr.mParcel.writeInt(1);
+            rr.mParcel.writeInt(allowed ? 1 : 0);
+        }
+        send(rr);
+    }
+
     private void logParcel(Parcel p) {
         StringBuffer s = new StringBuffer();
         byte [] bytes = p.marshall();
@@ -477,3 +529,4 @@ public class SamsungMSM8226DSRIL extends RIL implements CommandsInterface {
         riljLog("parcel position=" + p.dataPosition() + ": " + s);
     }
 }
+
