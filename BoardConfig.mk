@@ -50,5 +50,9 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/samsung/ms013g
 # Recovery
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
 
+# SELinux policies
+# qcom sepolicy
+include device/qcom/sepolicy/sepolicy.mk
+
 # inherit from the proprietary version
 -include vendor/samsung/ms013g/BoardConfigVendor.mk

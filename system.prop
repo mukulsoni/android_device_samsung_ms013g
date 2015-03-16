@@ -53,13 +53,11 @@ ro.vendor.extension_library=/system/vendor/lib/libqc-opt.so
 # Radio
 persist.data.netmgrd.qos.enable=false
 persist.radio.add_power_save=1
+persist.radio.apm_sim_not_pwdn=1
 ro.use_data_netmgrd=false
 
 # Recovery
 ro.cwm.forbid_format=/efs,/firmware,/firmware-modem,/persist,/boot
-
-# SELinux
-#ro.boot.selinux=disabled
 
 # Sensors
 ro.qc.sdk.gestures.camera=false
@@ -69,3 +67,6 @@ ro.qc.sdk.sensors.gestures=true
 # Wifi
 persist.sys.qc.sub.rdump.on=1
 persist.sys.ssr.restart_level=3
+wifi.interface=wlan0
+wifi.supplicant_scan_interval=15
+wlan.driver.ath=0
