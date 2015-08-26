@@ -27,6 +27,7 @@ mm.enable.smoothstreaming=true
 ro.qc.sdk.audio.fluencetype=none
 use.dedicated.device.for.voip=true
 use.voice.path.for.pcm.voip=false
+ro.multisim.set_audio_params=true
 
 # Bluetooth
 qcom.bt.le_dev_pwr_class=1 
