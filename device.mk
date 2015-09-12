@@ -19,6 +19,17 @@ LOCAL_PATH := device/samsung/ms013g
 # call the proprietary setup
 $(call inherit-product, vendor/samsung/ms013g/ms013g-vendor.mk)
 
+# Charger
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.usb.id.charge=F006 \
+    ro.usb.id.mtp=F003 \
+    ro.usb.id.mtp_adb=9039 \
+    ro.usb.id.ptp=904D \
+    ro.usb.id.ptp_adb=904E \
+    ro.usb.id.ums=F000 \
+    ro.usb.id.ums_adb=9015 \
+    ro.usb.vid=05c6
+
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
