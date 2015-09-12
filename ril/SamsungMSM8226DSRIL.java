@@ -297,7 +297,7 @@ public class SamsungMSM8226DSRIL extends RIL implements CommandsInterface {
         int lteCqi = p.readInt();
         int tdScdmaRscp = p.readInt();
         // constructor sets default true, makeSignalStrengthFromRilParcel does not set it
-        boolean isGsm = false;
+        boolean isGsm = true;
 
         if ((lteSignalStrength & 0xff) == 255 || lteSignalStrength == 99) {
             lteSignalStrength = 99;
