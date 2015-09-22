@@ -68,7 +68,6 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("ro.build.description", "ms013gxx-user 4.4.2 KOT49H G7102XXUBNK1 release-keys");
         property_set("ro.product.model", "SM-G7102");
         property_set("ro.product.device", "ms013g");
-        property_set("persist.dsds.enabled", "true");
         property_set("persist.radio.multisim.config", "dsds");
         property_set("ro.telephony.ril_class", "SamsungMSM8226DSRIL");
         gsm_properties();
@@ -81,6 +80,6 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
 
 void gsm_properties()
 {
-    property_set("telephony.lteOnGsmDevice", "0,1");
-    property_set("ro.telephony.default_network", "0,1");
+    property_set("telephony.lteOnGsmDevice", "0");
+    property_set("ro.telephony.default_network", "3");
 }
