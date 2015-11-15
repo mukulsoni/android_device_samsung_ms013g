@@ -33,6 +33,10 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 # Overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+# Radio
+PRODUCT_PACKAGES += \
+    libril_shim
+
 # Ramdisk
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/fstab.qcom:root/fstab.qcom
