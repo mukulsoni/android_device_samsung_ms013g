@@ -61,7 +61,8 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("ro.product.model", "SM-G7105");
         property_set("ro.product.device", "ms01lte");
         property_set("ro.telephony.ril_class", "SamsungMSM8226RIL");
-        gsm_properties();
+        property_set("ro.telephony.default_network", "3");
+        property_set("telephony.lteOnCdmaDevice", "0");
     } else if (strstr(bootloader, "G7102")) {
         /* ms013g */
         property_set("ro.build.fingerprint", "samsung/ms013gxx/ms013g:4.4.2/KOT49H/G7102XXUBNK1:user/release-keys");
@@ -70,16 +71,11 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("ro.product.device", "ms013g");
         property_set("persist.radio.multisim.config", "dsds");
         property_set("ro.telephony.ril_class", "SamsungMSM8226DSRIL");
-        gsm_properties();
+        property_set("ro.telephony.default_network", "3");
+        property_set("telephony.lteOnCdmaDevice", "0");
     }
 
     property_get("ro.product.device", device);
     strlcpy(devicename, device, sizeof(devicename));
     INFO("Found bootloader id %s setting build properties for %s device\n", bootloader, devicename);
-}
-
-void gsm_properties()
-{
-    property_set("telephony.lteOnGsmDevice", "0");
-    property_set("ro.telephony.default_network", "3");
 }

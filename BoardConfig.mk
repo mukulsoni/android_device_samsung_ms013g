@@ -30,7 +30,7 @@ BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE := $(LOCAL_PATH)/init/init_ms013g.c
+TARGET_LIBINIT_DEFINES_FILE := $(LOCAL_PATH)/init/init_ms013g.cpp
 TARGET_UNIFIED_DEVICE := true
 
 # Partitions
